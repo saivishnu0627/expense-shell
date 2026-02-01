@@ -63,21 +63,21 @@ cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.serv
 VALIDATE $? "copied backend service"
 
 systemctl daemon-reload &>>$LOGFILE
-VALIDATE &? "Daemon remload"
+VALIDATE $? "Daemon remload"
 
 systemctl start backend &>>$LOGFILE
-VALIDATE &? "starting backend"
+VALIDATE $? "starting backend"
 
 systemctl enable backend &>>$LOGFILE
-VALIDATE &? "enabling backend"
+VALIDATE $? "enabling backend"
 
 dnf install mysql -y &>>$LOGFILE
-VALIDATE &? "installing MYSQL Client"
+VALIDATE $? "installing MYSQL Client"
 
 mysql -h 54.234.110.228 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOGFILE
-VALIDATE &? "Schema loading"
+VALIDATE $? "Schema loading"
 
 systemctl restart backend &>>$LOGFILE
-VALIDATE &? "Restarting Backend"
+VALIDATE $? "Restarting Backend"
 
 
